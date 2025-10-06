@@ -1,0 +1,9 @@
+import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
+const Navbar = () => {
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
+    return (_jsx("nav", { className: "bg-primary text-white", children: _jsxs("div", { className: "max-w-6xl mx-auto px-4 py-3 flex items-center justify-between", children: [_jsx(Link, { to: "/", className: "font-semibold text-lg", children: "Carevia" }), _jsx("div", { className: "flex items-center gap-4", children: user ? (_jsxs(_Fragment, { children: [_jsx(NavLink, { to: "/", className: ({ isActive }) => isActive ? "underline" : "", children: "Dashboard" }), _jsx(NavLink, { to: "/health", className: ({ isActive }) => isActive ? "underline" : "", children: "Health" }), _jsx(NavLink, { to: "/mood", className: ({ isActive }) => isActive ? "underline" : "", children: "Mood" }), _jsx(NavLink, { to: "/articles", className: ({ isActive }) => isActive ? "underline" : "", children: "Articles" }), _jsx(NavLink, { to: "/ai", className: ({ isActive }) => isActive ? "underline" : "", children: "AI" }), _jsx(NavLink, { to: "/profile", className: ({ isActive }) => isActive ? "underline" : "", children: "Profile" }), _jsx(NavLink, { to: "/privacy", className: ({ isActive }) => isActive ? "underline" : "", children: "Privacy" }), _jsx("button", { className: "ml-2 bg-white text-primary px-3 py-1 rounded", onClick: () => { logout(); navigate('/login'); }, children: "Logout" })] })) : (_jsxs(_Fragment, { children: [_jsx(NavLink, { to: "/login", className: ({ isActive }) => isActive ? "underline" : "", children: "Login" }), _jsx(NavLink, { to: "/register", className: ({ isActive }) => isActive ? "underline" : "", children: "Register" })] })) })] }) }));
+};
+export default Navbar;
