@@ -1,1 +1,2 @@
 {"root":["./src/App.tsx","./src/env.d.ts","./src/main.tsx","./src/auth/AuthContext.tsx","./src/auth/ProtectedRoute.tsx","./src/components/Navbar.tsx","./src/components/Providers.tsx","./src/pages/AI.tsx","./src/pages/Articles.tsx","./src/pages/Dashboard.tsx","./src/pages/Health.tsx","./src/pages/Login.tsx","./src/pages/Mood.tsx","./src/pages/Privacy.tsx","./src/pages/Profile.tsx","./src/pages/Register.tsx"],"version":"5.9.3"}
+

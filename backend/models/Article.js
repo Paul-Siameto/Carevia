@@ -14,3 +14,4 @@ const articleSchema = new mongoose.Schema(
 export const Article = mongoose.model("Article", articleSchema);
 
 
+

@@ -46,3 +46,4 @@ Backend will run on `http://localhost:5000`, frontend on `http://localhost:5173`
 - Adjust `VITE_API_URL` in frontend env if backend URL differs.
 - AI endpoints are placeholders; integrate your preferred provider.
 
+
