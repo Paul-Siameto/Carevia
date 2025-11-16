@@ -4,7 +4,7 @@ console.log("Loaded .env keys:", Object.keys(process.env));
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const MODEL_NAME = process.env.GEMINI_MODEL || "gemini-1.5-flash";
+const MODEL_NAME = process.env.GEMINI_MODEL || "gemini-2.0-flash";
 
 console.log("Gemini key:", process.env.GEMINI_API_KEY ? "Loaded " : "Missing ");
 console.log("Gemini model:", MODEL_NAME);
@@ -12,24 +12,46 @@ console.log("Gemini model:", MODEL_NAME);
 const getAI = () => {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    throw new Error("GEMINI_API_KEY not configured");
+    console.warn("GEMINI_API_KEY not configured - using fallback AI responses only");
+    return null;
   }
-  return new GoogleGenerativeAI(apiKey);
+  try {
+    return new GoogleGenerativeAI(apiKey);
+  } catch (err) {
+    console.error("Failed to initialize GoogleGenerativeAI instance:", err);
+    return null;
+  }
 };
 
 const buildModel = () => {
   const genAI = getAI();
-  return genAI.getGenerativeModel({ model: MODEL_NAME });
+  if (!genAI) return null;
+  try {
+    return genAI.getGenerativeModel({ model: MODEL_NAME });
+  } catch (err) {
+    console.error("Failed to build Gemini model:", err);
+    return null;
+  }
 };
 
 export const listModels = async (req, res) => {
   try {
     const genAI = getAI();
+    if (!genAI) {
+      return res.status(200).json({
+        models: [],
+        message: "Gemini not configured. Set GEMINI_API_KEY and GEMINI_MODEL to enable dynamic models list.",
+      });
+    }
     const models = await genAI.listModels();
     res.json({ models: models.map((m) => ({ name: m.name, supportedMethods: m.supportedGenerationMethods })) });
   } catch (err) {
     console.error("Error listing models:", err);
-    res.status(500).json({ message: "Could not list models", error: err.message });
+    res.status(200).json({
+      models: [],
+      message: "Could not list models. Using fallback behavior.",
+      error: err.message,
+    });
   }
 };
 
@@ -41,6 +63,22 @@ export const symptomCheck = async (req, res) => {
     }
 
     const model = buildModel();
+
+    if (!model) {
+      const basicText = `You reported the following symptoms: ${
+        Array.isArray(symptoms) ? symptoms.join(", ") : symptoms
+      }.
+
+This app's advanced AI assistant is not configured right now, but here are some general guidelines:
+- If your symptoms are severe, sudden, or getting worse, please seek medical help immediately.
+- For persistent or worrying symptoms, consult a qualified healthcare professional.
+- Use rest, hydration, and healthy nutrition to support your recovery.
+
+Disclaimer: This is not professional medical advice.`;
+
+      return res.json({ result: basicText });
+    }
+
     const prompt = `You are a medical assistant. A user reports the following symptoms: ${
       Array.isArray(symptoms) ? symptoms.join(", ") : symptoms
     }. Provide a brief assessment and suggest whether they should see a doctor. Keep it concise (3-4 sentences). Disclaimer: This is not professional medical advice.`;
@@ -51,8 +89,8 @@ export const symptomCheck = async (req, res) => {
     res.json({ result: text });
   } catch (err) {
     console.error("Gemini symptomCheck error:", err);
-    const helpMsg = "Check that GEMINI_API_KEY in .env is valid. Get one at https://aistudio.google.com/apikey";
-    res.status(500).json({ message: "AI service unavailable", error: err.message, help: helpMsg });
+    const fallback = "We could not contact the AI service at the moment. If your symptoms are severe or you feel unwell, please seek medical help. This is not professional medical advice.";
+    res.json({ result: fallback });
   }
 };
 
@@ -64,6 +102,22 @@ export const nutritionPlan = async (req, res) => {
     }
 
     const model = buildModel();
+
+    if (!model) {
+      const basicPlan = `Here is a simple example daily meal plan based on your preferences (${JSON.stringify(
+        preferences
+      )}):
+
+- Breakfast: Oatmeal with fruit and a source of protein (e.g., yogurt, nuts, or eggs).
+- Lunch: Balanced plate with vegetables, whole grains (like brown rice or quinoa), and lean protein (beans, fish, or chicken).
+- Snack: A piece of fruit, nuts, or yogurt.
+- Dinner: Mixed vegetables, a whole grain, and a healthy protein source.
+
+Adjust portions and ingredients to your dietary needs and any medical advice you have received.`;
+
+      return res.json({ plan: basicPlan });
+    }
+
     const prompt = `You are a nutrition expert. Based on these user preferences: ${JSON.stringify(
       preferences
     )}, create a simple daily meal plan (breakfast, lunch, dinner, snack). Keep it concise and healthy.`;
@@ -74,8 +128,8 @@ export const nutritionPlan = async (req, res) => {
     res.json({ plan: text });
   } catch (err) {
     console.error("Gemini nutritionPlan error:", err);
-    const helpMsg = "Check that GEMINI_API_KEY in .env is valid. Get one at https://aistudio.google.com/apikey";
-    res.status(500).json({ message: "AI service unavailable", error: err.message, help: helpMsg });
+    const fallbackPlan = "We could not contact the AI service. As a general guide, aim for balanced meals with vegetables, whole grains, and lean protein, and limit sugary drinks and highly processed foods.";
+    res.json({ plan: fallbackPlan });
   }
 };
 
@@ -93,34 +147,47 @@ export const chatReply = async (req, res) => {
 
     console.log("1. Received chat request with message:", message);
     
-    // Check if API key is configured
-    if (!process.env.GEMINI_API_KEY) {
-      const errorMsg = 'GEMINI_API_KEY is not configured in .env file';
-      console.error(errorMsg);
-      return res.status(500).json({ 
-        message: "Configuration error",
-        error: errorMsg,
-        help: "Please set GEMINI_API_KEY in your .env file"
-      });
-    }
-    
-    console.log("2. API Key is configured");
-    
     try {
-      console.log("3. Building Gemini model...");
+      console.log("2. Building Gemini model (if available)...");
       const model = buildModel();
+
+      if (!model) {
+        const fallbackReply = `Hi! Thanks for reaching out. The advanced AI assistant is not fully configured right now, but here are some general wellness tips:
+
+- Try to keep a regular sleep schedule and give yourself time to rest.
+- Stay hydrated and include fruits, vegetables, and whole grains in your meals.
+- Take short breaks to move, stretch, or breathe deeply during the day.
+
+If you have serious health concerns, please speak with a healthcare professional.`;
+        console.log("Gemini model not available - returning fallback reply");
+        return res.json({ reply: fallbackReply });
+      }
+
+      const prompt = `You are Carevia AI, a friendly health and wellness assistant for a healthcare app.
+
+The user says: "${message}".
+
+Your goals:
+- Give clear, supportive information about health, symptoms, wellness, or treatments.
+- You MAY briefly explain possible causes, common conditions, lifestyle factors, and typical treatment options in general terms.
+- Highlight important warning signs where the user should seek urgent or in-person medical care.
+- Always stay within general information. DO NOT claim to give a diagnosis or prescribe specific medication or exact doses.
+- Keep the tone calm, non-judgmental, and encouraging.
+
+Important safety instructions:
+- End with a SHORT disclaimer like: "This is general information, not a diagnosis. Please speak to a doctor or other healthcare professional for personal advice."
+
+Respond in 2-3 concise sentences total (including the disclaimer).`;
       
-      const prompt = `You are Carevia AI, a friendly health and wellness assistant. The user says: "${message}". Respond helpfully and concisely (2-3 sentences). Focus on general wellness, healthy habits, mental health tips, or encouragement.`;
-      
-      console.log("4. Sending prompt to Gemini:", prompt);
+      console.log("3. Sending prompt to Gemini:", prompt);
       
       const result = await model.generateContent(prompt);
-      console.log("5. Received response from Gemini");
+      console.log("4. Received response from Gemini");
       
       const text = result.response.text();
-      console.log("6. Extracted text from response");
+      console.log("5. Extracted text from response");
       
-      console.log("7. Sending success response");
+      console.log("6. Sending success response");
       return res.json({ reply: text });
       
     } catch (apiError) {
@@ -131,16 +198,15 @@ export const chatReply = async (req, res) => {
         response: apiError.response?.data || 'No response data',
         status: apiError.response?.status || 'No status code'
       });
-      
-      return res.status(500).json({
-        message: "Error communicating with Gemini API",
-        error: apiError.message,
-        details: process.env.NODE_ENV === 'development' ? {
-          name: apiError.name,
-          status: apiError.response?.status,
-          response: apiError.response?.data
-        } : undefined
-      });
+
+      const safeReply = `I had trouble contacting the AI service just now, but here are some general suggestions:
+
+- Take a moment to notice how you feel physically and emotionally.
+- Consider a short walk, stretch, or breathing exercise to reset.
+- Reach out to a friend, family member, or professional if you need support.
+
+If anything feels urgent or worrying about your health, please contact a healthcare professional.`;
+      return res.json({ reply: safeReply });
     }
     
   } catch (error) {
@@ -156,15 +222,7 @@ export const chatReply = async (req, res) => {
       })
     });
     
-    return res.status(500).json({
-      message: "An unexpected error occurred",
-      error: error.message,
-      ...(process.env.NODE_ENV === 'development' && {
-        details: {
-          name: error.name,
-          stack: error.stack
-        }
-      })
-    });
+    const genericReply = "Something went wrong while processing your request, but you can try again in a moment. If you have any serious health concerns, please consult a healthcare professional.";
+    return res.json({ reply: genericReply });
   }
 };

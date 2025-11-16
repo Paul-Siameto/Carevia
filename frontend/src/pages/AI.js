@@ -2,6 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../auth/AuthContext";
+import ChatBox from "../components/ChatBox.jsx";
 
 const AI = () => {
     const { token } = useAuth();
@@ -62,26 +63,37 @@ const AI = () => {
     ];
 
     return (
-        _jsxs("div", { className: "space-y-4", children: [
-            _jsx("h1", { className: "text-2xl font-semibold text-primary", children: "AI Assistant" }),
-            _jsx("div", { className: "flex gap-2 border-b", children: tabs.map(t => (
-                _jsx("button", { className: `px-4 py-2 ${tab === t.id ? "border-b-2 border-accent text-accent font-semibold" : "text-gray-600"}`, onClick: () => setTab(t.id), children: t.label }, t.id)
-            )) }),
-            tab === "chat" && _jsxs("div", { className: "card p-4 space-y-3", children: [
-                _jsx("input", { className: "border rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-primary/30", placeholder: "Ask anything about health, wellness, or habits...", value: message, onChange: (e) => setMessage(e.target.value), onKeyDown: (e) => e.key === "Enter" && sendChat() }),
-                _jsx("button", { className: "btn-accent", onClick: sendChat, disabled: loading, children: loading ? "Thinking..." : "Send" }),
-                reply && _jsx("div", { className: "mt-3 p-3 bg-accent/5 border border-accent/20 rounded-md text-gray-800 whitespace-pre-wrap", children: reply })
+        _jsxs("div", { className: "space-y-6", children: [
+            _jsxs("div", { className: "flex items-baseline justify-between gap-2", children: [
+                _jsx("h1", { className: "text-2xl font-semibold text-primary", children: "AI Assistant" }),
+                _jsx("p", { className: "text-xs text-gray-500", children: "Ask questions, check symptoms, or get a quick nutrition plan." })
             ] }),
-            tab === "symptoms" && _jsxs("div", { className: "card p-4 space-y-3", children: [
-                _jsx("textarea", { className: "border rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-primary/30", rows: 3, placeholder: "Describe your symptoms (e.g., headache, fever, fatigue)...", value: symptoms, onChange: (e) => setSymptoms(e.target.value) }),
-                _jsx("button", { className: "btn-primary", onClick: checkSymptoms, disabled: loading, children: loading ? "Analyzing..." : "Check Symptoms" }),
-                symptomResult && _jsx("div", { className: "mt-3 p-3 bg-blue-50 border border-blue-200 rounded-md text-gray-800 whitespace-pre-wrap", children: symptomResult })
-            ] }),
-            tab === "nutrition" && _jsxs("div", { className: "card p-4 space-y-3", children: [
-                _jsx("textarea", { className: "border rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-primary/30", rows: 3, placeholder: "Tell us your dietary preferences, restrictions, or goals (e.g., vegan, low-carb, muscle gain)...", value: preferences, onChange: (e) => setPreferences(e.target.value) }),
-                _jsx("button", { className: "btn-primary", onClick: getNutritionPlan, disabled: loading, children: loading ? "Generating..." : "Get Nutrition Plan" }),
-                nutritionPlan && _jsx("div", { className: "mt-3 p-3 bg-green-50 border border-green-200 rounded-md text-gray-800 whitespace-pre-wrap", children: nutritionPlan })
-            ] })
+            _jsx("div", { className: "flex justify-center", children: _jsx(ChatBox, {}) }),
+            _jsx("div", { className: "rounded-lg bg-white shadow-sm border border-gray-100", children: _jsxs("div", { className: "flex flex-col", children: [
+                _jsx("div", { className: "flex flex-wrap gap-2 border-b border-gray-100 px-3 pt-3", children: tabs.map(t => (
+                    _jsx("button", { className: `px-3 py-2 text-sm rounded-full transition-colors ${tab === t.id
+                        ? "bg-primary/10 text-primary font-semibold"
+                        : "text-gray-600 hover:bg-gray-100"}`, onClick: () => !loading && setTab(t.id), disabled: loading, children: t.label }, t.id)
+                )) }),
+                _jsxs("div", { className: "p-4 space-y-4", children: [
+                    tab === "chat" && _jsxs("div", { className: "space-y-3", children: [
+                        _jsx("input", { className: "border rounded-lg px-3 py-2 w-full text-sm focus:outline-none focus:ring-2 focus:ring-primary/30", placeholder: "Ask anything about health, wellness, or habits...", value: message, onChange: (e) => setMessage(e.target.value), onKeyDown: (e) => e.key === "Enter" && !loading && sendChat() }),
+                        _jsx("button", { className: "btn-accent w-full sm:w-auto", onClick: sendChat, disabled: loading, children: loading ? "Thinking..." : "Send" }),
+                        reply && _jsx("div", { className: "mt-2 p-3 bg-accent/5 border border-accent/20 rounded-lg text-sm text-gray-800 whitespace-pre-wrap leading-relaxed", children: reply })
+                    ] }),
+                    tab === "symptoms" && _jsxs("div", { className: "space-y-3", children: [
+                        _jsx("textarea", { className: "border rounded-lg px-3 py-2 w-full text-sm focus:outline-none focus:ring-2 focus:ring-primary/30", rows: 4, placeholder: "Describe your symptoms (e.g., headache, fever, fatigue)...", value: symptoms, onChange: (e) => setSymptoms(e.target.value) }),
+                        _jsx("button", { className: "btn-primary w-full sm:w-auto", onClick: checkSymptoms, disabled: loading, children: loading ? "Analyzing..." : "Check Symptoms" }),
+                        symptomResult && _jsx("div", { className: "mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-gray-800 whitespace-pre-wrap leading-relaxed", children: symptomResult })
+                    ] }),
+                    tab === "nutrition" && _jsxs("div", { className: "space-y-3", children: [
+                        _jsx("textarea", { className: "border rounded-lg px-3 py-2 w-full text-sm focus:outline-none focus:ring-2 focus:ring-primary/30", rows: 4, placeholder: "Tell us your dietary preferences, restrictions, or goals (e.g., vegan, low-carb, muscle gain)...", value: preferences, onChange: (e) => setPreferences(e.target.value) }),
+                        _jsx("button", { className: "btn-primary w-full sm:w-auto", onClick: getNutritionPlan, disabled: loading, children: loading ? "Generating..." : "Get Nutrition Plan" }),
+                        nutritionPlan && _jsx("div", { className: "mt-2 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-gray-800 whitespace-pre-wrap leading-relaxed", children: nutritionPlan })
+                    ] }),
+                    loading && _jsx("p", { className: "text-xs text-gray-400", children: "AI is working on your request..." })
+                ] })
+            ] }) })
         ] })
     );
 };
