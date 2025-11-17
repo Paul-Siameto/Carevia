@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import axios from "axios";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
+import MoodChart from "../components/MoodChart.jsx";
 const Dashboard = () => {
     const { token } = useAuth();
     const [entries, setEntries] = useState([]);
+    const [moodEntries, setMoodEntries] = useState([]);
     const [aiTip, setAiTip] = useState("Loading wellness tip...");
     useEffect(() => {
         const base = (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(/\/$/, "");
@@ -13,6 +15,7 @@ const Dashboard = () => {
         const api = axios.create({ baseURL });
         api.interceptors.request.use((config) => { if (token) config.headers.Authorization = `Bearer ${token}`; return config; });
         api.get("/health").then((res) => setEntries(res.data.entries || [])).catch(() => { });
+        api.get("/mood").then((res) => setMoodEntries(res.data.entries || [])).catch(() => { });
         api.post("/ai/chat", { message: "Give me one quick wellness tip for today." })
             .then((res) => setAiTip(res.data.reply))
             .catch(() => setAiTip("Stay hydrated, eat balanced meals, and get enough sleep!"));
@@ -43,7 +46,11 @@ const Dashboard = () => {
                     ] })
                     : _jsx("p", { className: "text-sm text-gray-700 whitespace-pre-wrap leading-relaxed", children: aiTip })
             ] })
-        ] })
+        ] }),
+        moodEntries.length > 0 && _jsxs("div", { className: "card p-4 space-y-3", children: [
+                _jsx("h2", { className: "font-semibold text-secondary", children: "Mood Trend" }),
+                _jsx(MoodChart, { entries: moodEntries })
+            ] })
     ] }));
 };
 

@@ -2,7 +2,6 @@ import { createElement as h, Fragment } from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../auth/AuthContext";
-import MoodChart from "../components/MoodChart.jsx";
 
 const MoodPage = () => {
   const { token } = useAuth();
@@ -113,13 +112,6 @@ const MoodPage = () => {
         onClick: add
       }, "Add Entry")
     ]),
-
-    // Chart
-    entries.length > 0 &&
-      h("div", { className: "p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/30 shadow-xl text-gray-900" }, [
-        h("h2", { className: "text-xl font-semibold mb-3" }, "Mood Trend"),
-        h(MoodChart, { entries })
-      ]),
 
     // Entries list
     h("div", { className: "space-y-4" }, [

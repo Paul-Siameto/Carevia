@@ -38,14 +38,45 @@ const Navbar = () => {
 
   const NavItems = () => (
     <>
-      <NavLink to="/dashboard" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>Dashboard</NavLink>
-      <NavLink to="/health" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>Health</NavLink>
-      <NavLink to="/mood" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>Mood</NavLink>
-      <NavLink to="/articles" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>Articles</NavLink>
-      <NavLink to="/ai" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>AI</NavLink>
-      <NavLink to="/profile" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>Profile</NavLink>
-      <NavLink to="/privacy" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>Privacy</NavLink>
-      <button className="ml-2 btn-outline bg-white/10 border-white/30 hover:bg-white/20" onClick={onLogout}>Logout</button>
+      <NavLink to="/dashboard" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
+        Dashboard
+      </NavLink>
+      <NavLink to="/health" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
+        Health
+      </NavLink>
+      <NavLink to="/mood" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
+        Mood
+      </NavLink>
+      <NavLink to="/articles" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
+        Articles
+      </NavLink>
+      <NavLink to="/ai" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
+        AI
+      </NavLink>
+      <NavLink to="/profile" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
+        Profile
+      </NavLink>
+      <NavLink to="/privacy" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
+        Privacy
+      </NavLink>
+      {!user?.isPremium && (
+        <NavLink
+          to="/pricing"
+          className={({ isActive }) =>
+            `${linkBase} border border-white/40 bg-white/10 hover:bg-white/20 ${
+              isActive ? "nav-active" : ""
+            }`
+          }
+        >
+          Upgrade
+        </NavLink>
+      )}
+      <button
+        className="ml-2 btn-outline bg-white/10 border-white/30 hover:bg-white/20"
+        onClick={onLogout}
+      >
+        Logout
+      </button>
     </>
   );
 

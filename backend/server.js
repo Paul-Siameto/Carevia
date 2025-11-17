@@ -12,6 +12,7 @@ import moodRoutes from "./routes/mood.js";
 import articleRoutes from "./routes/articles.js";
 import aiRoutes from "./routes/ai.js";
 import privacyRoutes from "./routes/privacy.js";
+import billingRoutes from "./routes/billing.js";
 
 dotenv.config();
 
@@ -44,6 +45,7 @@ app.use("/api/mood", moodRoutes);
 app.use("/api/articles", articleRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/privacy", privacyRoutes);
+app.use("/api/billing", billingRoutes);
 
 // 404 handler
 app.use((req, res, next) => {

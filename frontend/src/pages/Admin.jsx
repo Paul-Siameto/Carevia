@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../auth/AuthContext";
@@ -26,6 +26,10 @@ const Admin = () => {
   const [bodyFontFamily, setBodyFontFamily] = useState("system");
   const [bodyFontSize, setBodyFontSize] = useState("text-sm");
   const [bodyFontColor, setBodyFontColor] = useState("text-gray-700");
+  const [articles, setArticles] = useState([]);
+  const [editingId, setEditingId] = useState(null);
+  const [loadingArticles, setLoadingArticles] = useState(false);
+  const [savingArticle, setSavingArticle] = useState(false);
 
   let sectionTitle = "Overview";
   let sectionSubtitle = "High-level insight into how Carevia is being used.";
@@ -42,6 +46,37 @@ const Admin = () => {
   }
 
   const isContentPage = path.startsWith("/admin/content");
+
+  const loadArticles = async () => {
+    try {
+      setLoadingArticles(true);
+      const { data } = await api.get("/articles");
+      setArticles(data.articles || []);
+    } catch {
+      // ignore for now
+    } finally {
+      setLoadingArticles(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isContentPage) {
+      loadArticles();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isContentPage]);
+
+  const resetForm = () => {
+    setArticleTitle("");
+    setArticleSummary("");
+    setArticleBody("");
+    setArticleImage("");
+    setArticleVideo("");
+    setBodyFontFamily("system");
+    setBodyFontSize("text-sm");
+    setBodyFontColor("text-gray-700");
+    setEditingId(null);
+  };
 
   return (
     <AdminDashboardLayout>
@@ -95,7 +130,20 @@ const Admin = () => {
         {isContentPage && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="card p-4 space-y-4">
-              <h2 className="text-sm font-semibold text-gray-900">Create article</h2>
+              <div className="flex items-center justify-between gap-2">
+                <h2 className="text-sm font-semibold text-gray-900">
+                  {editingId ? "Edit article" : "Create article"}
+                </h2>
+                {editingId && (
+                  <button
+                    type="button"
+                    className="text-xs text-gray-500 hover:underline"
+                    onClick={resetForm}
+                  >
+                    Clear selection
+                  </button>
+                )}
+              </div>
               <div className="space-y-3">
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1">
@@ -207,9 +255,15 @@ const Admin = () => {
                 <button
                   type="button"
                   className="btn-primary px-4 py-2 text-sm"
+                  disabled={savingArticle}
                   onClick={async () => {
+                    if (!articleTitle.trim() && !editingId) {
+                      alert("Please add a title before saving.");
+                      return;
+                    }
                     try {
-                      await api.post("/articles", {
+                      setSavingArticle(true);
+                      const payload = {
                         title: articleTitle || "Untitled article",
                         summary: articleSummary,
                         body: articleBody,
@@ -219,16 +273,29 @@ const Admin = () => {
                         bodyFontSize,
                         bodyFontColor,
                         published: true,
-                      });
+                      };
+                      if (editingId) {
+                        await api.put(`/articles/${editingId}`, payload);
+                      } else {
+                        await api.post("/articles", payload);
+                      }
+                      await loadArticles();
                       alert("Article saved successfully.");
+                      resetForm();
                     } catch (err) {
                       alert(
                         err?.response?.data?.message || "Failed to save article."
                       );
+                    } finally {
+                      setSavingArticle(false);
                     }
                   }}
                 >
-                  Save article
+                  {savingArticle
+                    ? "Saving..."
+                    : editingId
+                    ? "Update article"
+                    : "Save article"}
                 </button>
               </div>
             </div>
@@ -277,6 +344,92 @@ const Admin = () => {
                 </p>
               </div>
             </div>
+          </div>
+        )}
+
+        {isContentPage && (
+          <div className="card p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-semibold text-gray-900">Existing articles</h2>
+              {loadingArticles && (
+                <span className="text-xs text-gray-500">Loading...</span>
+              )}
+            </div>
+            {articles.length === 0 && !loadingArticles && (
+              <p className="text-xs text-gray-500">
+                No articles yet. Save one using the form above.
+              </p>
+            )}
+            {articles.length > 0 && (
+              <div className="space-y-2">
+                {articles.map((a) => (
+                  <div
+                    key={a._id}
+                    className="flex items-center justify-between gap-3 border rounded-md px-3 py-2 bg-white"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      {a.imageUrl && (
+                        <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-md bg-gray-100">
+                          <img
+                            src={a.imageUrl}
+                            alt="Thumb"
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className="min-w-0">
+                        <p className="text-xs font-medium text-gray-900 truncate">
+                          {a.title}
+                        </p>
+                        <p className="text-[11px] text-gray-500 truncate">
+                          {new Date(a.createdAt).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        className="text-[11px] text-primary hover:underline"
+                        onClick={() => {
+                          setEditingId(a._id);
+                          setArticleTitle(a.title || "");
+                          setArticleSummary(a.summary || "");
+                          setArticleBody(a.body || a.content || "");
+                          setArticleImage(a.imageUrl || "");
+                          setArticleVideo(a.videoUrl || "");
+                          setBodyFontFamily(a.bodyFontFamily || "system");
+                          setBodyFontSize(a.bodyFontSize || "text-sm");
+                          setBodyFontColor(a.bodyFontColor || "text-gray-700");
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        className="text-[11px] text-red-600 hover:underline"
+                        onClick={async () => {
+                          if (!window.confirm("Delete this article?")) return;
+                          try {
+                            await api.delete(`/articles/${a._id}`);
+                            if (editingId === a._id) {
+                              resetForm();
+                            }
+                            await loadArticles();
+                          } catch (err) {
+                            alert(
+                              err?.response?.data?.message ||
+                                "Failed to delete article."
+                            );
+                          }
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>

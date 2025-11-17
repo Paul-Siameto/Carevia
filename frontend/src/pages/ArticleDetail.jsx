@@ -60,17 +60,17 @@ const ArticleDetail = () => {
   const bodyText = article.body || article.content || "";
 
   return (
-    <article className="space-y-4">
+    <article className="max-w-3xl mx-auto space-y-4">
       <button
         type="button"
         className="text-sm text-primary hover:underline"
         onClick={() => navigate("/articles")}
       >
-        ← Back to articles
+         Back to articles
       </button>
-      <div className="card overflow-hidden">
+      <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm">
         {article.imageUrl && (
-          <div className="h-56 w-full bg-gray-100">
+          <div className="relative h-64 w-full bg-gray-100">
             <img
               src={article.imageUrl}
               alt="Article visual"
@@ -79,18 +79,26 @@ const ArticleDetail = () => {
                 e.currentTarget.style.display = "none";
               }}
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
           </div>
         )}
-        <div className="p-4 space-y-3">
-          <h1 className="text-2xl font-semibold text-gray-900">
-            {article.title}
-          </h1>
-          <p className="text-xs text-gray-500">
-            {new Date(article.createdAt).toLocaleString()}
-          </p>
-          {article.summary && (
-            <p className="text-sm text-gray-700">{article.summary}</p>
-          )}
+        <div className="p-5 sm:p-6 space-y-4">
+          <header className="space-y-2">
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-primary">
+              Health & Wellness
+            </p>
+            <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900">
+              {article.title}
+            </h1>
+            <p className="text-xs text-gray-500">
+              {new Date(article.createdAt).toLocaleString()}
+            </p>
+            {article.summary && (
+              <p className="text-sm text-gray-700 max-w-2xl">
+                {article.summary}
+              </p>
+            )}
+          </header>
           {article.videoUrl && (
             <div className="mt-3 aspect-video w-full">
               <iframe

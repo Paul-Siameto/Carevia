@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true, select: false },
     healthProfile: healthProfileSchema,
     isAdmin: { type: Boolean, default: false },
+    isPremium: { type: Boolean, default: false },
+    premiumSince: { type: Date },
+    premiumPlan: { type: String },
   },
   { timestamps: true }
 );
