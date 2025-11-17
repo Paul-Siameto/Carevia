@@ -120,7 +120,11 @@ Adjust portions and ingredients to your dietary needs and any medical advice you
 
     const prompt = `You are a nutrition expert. Based on these user preferences: ${JSON.stringify(
       preferences
-    )}, create a simple daily meal plan (breakfast, lunch, dinner, snack). Keep it concise and healthy.`;
+    )}, create a simple daily meal plan that includes breakfast, lunch, dinner, and one snack.
+
+Return the plan as short plain text paragraphs, one for each meal, in this order: Breakfast, Lunch, Snack, Dinner.
+Do NOT add any separate "Activity" section or exercise recommendations.
+Do NOT use markdown (no bullets, asterisks, or bold headings). Just simple sentences that are easy to read.`;
 
     const result = await model.generateContent(prompt);
     const text = result.response.text();

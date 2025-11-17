@@ -12,7 +12,7 @@ export const register = async (req, res) => {
     if (existing) return res.status(409).json({ message: "Email already registered" });
     const user = await User.create({ name, email, password });
     const token = signToken(user._id);
-    res.status(201).json({ token, user: { id: user._id, name: user.name, email: user.email } });
+    res.status(201).json({ token, user: { id: user._id, name: user.name, email: user.email, isAdmin: user.isAdmin } });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -21,12 +21,12 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email }).select("+password name email");
+    const user = await User.findOne({ email }).select("+password name email isAdmin");
     if (!user) return res.status(401).json({ message: "Invalid credentials" });
     const ok = await user.comparePassword(password);
     if (!ok) return res.status(401).json({ message: "Invalid credentials" });
     const token = signToken(user._id);
-    res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
+    res.json({ token, user: { id: user._id, name: user.name, email: user.email, isAdmin: user.isAdmin } });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -35,7 +35,7 @@ export const login = async (req, res) => {
 export const me = async (req, res) => {
   try {
     const user = await User.findById(req.userId);
-    res.json({ user: { id: user._id, name: user.name, email: user.email, healthProfile: user.healthProfile } });
+    res.json({ user: { id: user._id, name: user.name, email: user.email, healthProfile: user.healthProfile, isAdmin: user.isAdmin } });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

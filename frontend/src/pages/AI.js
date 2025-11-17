@@ -89,7 +89,7 @@ const AI = () => {
                     tab === "nutrition" && _jsxs("div", { className: "space-y-3", children: [
                         _jsx("textarea", { className: "border rounded-lg px-3 py-2 w-full text-sm focus:outline-none focus:ring-2 focus:ring-primary/30", rows: 4, placeholder: "Tell us your dietary preferences, restrictions, or goals (e.g., vegan, low-carb, muscle gain)...", value: preferences, onChange: (e) => setPreferences(e.target.value) }),
                         _jsx("button", { className: "btn-primary w-full sm:w-auto", onClick: getNutritionPlan, disabled: loading, children: loading ? "Generating..." : "Get Nutrition Plan" }),
-                        nutritionPlan && _jsx("div", { className: "mt-2 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-gray-800 whitespace-pre-wrap leading-relaxed", children: nutritionPlan })
+                        nutritionPlan && _jsx("div", { className: "mt-2 p-4 bg-green-50 border border-green-200 rounded-lg text-[0.9rem] sm:text-base text-gray-800 whitespace-pre-wrap leading-relaxed", children: nutritionPlan })
                     ] }),
                     loading && _jsx("p", { className: "text-xs text-gray-400", children: "AI is working on your request..." })
                 ] })
