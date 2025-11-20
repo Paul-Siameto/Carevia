@@ -25,9 +25,54 @@ connectDB();
 app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
 app.use(express.json());
 app.use(cookieParser());
+
+// Build allowed origins list
+const allowedOrigins = new Set();
+
+// Add CLIENT_ORIGINS if set (comma-separated)
+if (process.env.CLIENT_ORIGINS) {
+  process.env.CLIENT_ORIGINS.split(",").forEach((origin) => {
+    const trimmed = origin.trim();
+    if (trimmed) allowedOrigins.add(trimmed);
+  });
+}
+
+// Add CLIENT_URL if set
+if (process.env.CLIENT_URL) {
+  allowedOrigins.add(process.env.CLIENT_URL.trim());
+}
+
+// In development, always allow both common Vite ports
+if (process.env.NODE_ENV !== "production") {
+  allowedOrigins.add("http://localhost:5173");
+  allowedOrigins.add("http://localhost:5174");
+}
+
+// If no origins were configured, use defaults
+if (allowedOrigins.size === 0) {
+  allowedOrigins.add("http://localhost:5173");
+  allowedOrigins.add("http://localhost:5174");
+}
+
+console.log("Allowed CORS origins:", Array.from(allowedOrigins));
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin(origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) {
+        return callback(null, true);
+      }
+      
+      // Check if origin is in allowed set
+      if (allowedOrigins.has(origin)) {
+        return callback(null, true);
+      }
+      
+      // Log for debugging
+      console.log(`CORS blocked origin: ${origin}. Allowed:`, Array.from(allowedOrigins));
+      return callback(new Error(`Origin ${origin} not allowed by CORS`));
+    },
     credentials: true,
   })
 );
