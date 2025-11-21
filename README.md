@@ -117,9 +117,13 @@ JWT_SECRET=your-super-secret-jwt-key-here
 PORT=5000
 NODE_ENV=development
 
-# CORS
+# CORS (comma-separated list of domains that can call the API)
+# Local development
 CLIENT_URL=http://localhost:5173
 CLIENT_ORIGINS=http://localhost:5173,http://localhost:5174
+# Production
+# CLIENT_URL=https://carevia-one.vercel.app
+# CLIENT_ORIGINS=https://carevia-one.vercel.app,http://localhost:5173,http://localhost:5174
 
 # AI (Google Gemini)
 GEMINI_API_KEY=your-google-gemini-api-key
@@ -139,8 +143,12 @@ MPESA_STK_PUSH_URL=https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processreque
 
 #### Frontend (`.env`)
 ```env
+# Local dev
 VITE_API_URL=http://localhost:5000
 VITE_PAYSTACK_PUBLIC_KEY=your-paystack-public-key
+
+# Production
+# VITE_API_URL=https://care-via.onrender.com
 ```
 
 ### Running the Application

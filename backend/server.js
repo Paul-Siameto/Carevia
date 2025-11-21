@@ -26,33 +26,40 @@ app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
 app.use(express.json());
 app.use(cookieParser());
 
+// Helper to normalize origins (remove trailing slash, trim)
+const normalizeOrigin = (origin) => origin?.trim().replace(/\/$/, "");
+
 // Build allowed origins list
 const allowedOrigins = new Set();
 
 // Add CLIENT_ORIGINS if set (comma-separated)
 if (process.env.CLIENT_ORIGINS) {
   process.env.CLIENT_ORIGINS.split(",").forEach((origin) => {
-    const trimmed = origin.trim();
-    if (trimmed) allowedOrigins.add(trimmed);
+    const normalized = normalizeOrigin(origin);
+    if (normalized) allowedOrigins.add(normalized);
   });
 }
 
 // Add CLIENT_URL if set
 if (process.env.CLIENT_URL) {
-  allowedOrigins.add(process.env.CLIENT_URL.trim());
+  const normalized = normalizeOrigin(process.env.CLIENT_URL);
+  if (normalized) allowedOrigins.add(normalized);
 }
 
-// In development, always allow both common Vite ports
-if (process.env.NODE_ENV !== "production") {
-  allowedOrigins.add("https://carevia-one.vercel.app");
-  // allowedOrigins.add("http://localhost:5174");
-}
+// Always include safe defaults so local dev tools can call production APIs
+const defaultOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "https://carevia-one.vercel.app",
+  process.env.FRONTEND_URL,
+];
 
-// If no origins were configured, use defaults
-if (allowedOrigins.size === 0) {
-  allowedOrigins.add("http://localhost:5173");
-  allowedOrigins.add("http://localhost:5174");
-}
+defaultOrigins.forEach((origin) => {
+  const normalized = normalizeOrigin(origin);
+  if (normalized) {
+    allowedOrigins.add(normalized);
+  }
+});
 
 console.log("Allowed CORS origins:", Array.from(allowedOrigins));
 
@@ -61,6 +68,11 @@ app.use(
     origin(origin, callback) {
       // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) {
+        return callback(null, true);
+      }
+      
+      // Always allow localhost origins for developer experience
+      if (origin.startsWith("http://localhost") || origin.startsWith("https://localhost")) {
         return callback(null, true);
       }
       
