@@ -35,7 +35,7 @@ const getMpesaAccessToken = async () => {
 export const initiateMpesaPayment = async (req, res) => {
   try {
     const { phoneNumber } = req.body;
-    const amount = 1; // KES 5000
+    const amount = 22; // KES 5000
 
     if (!phoneNumber) {
       return res.status(400).json({ message: "Phone number is required" });

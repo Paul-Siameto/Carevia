@@ -20,14 +20,10 @@ const Landing = () => {
               className: "inline-flex items-center rounded-full bg-gradient-to-r from-primary-100 to-accent-100 dark:from-primary-900/30 dark:to-accent-900/30 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary-600 dark:text-primary-400 animate-fade-in", 
               children: "✨ Digital Health Companion" 
             }),
-            _jsxs("h1", { 
-              className: "text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-gray-900 dark:text-white leading-tight animate-fade-in-up", 
+            _jsx("h1", { 
+              className: "text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-primary-500 leading-tight animate-fade-in-up", 
               style: { animationDelay: '0.1s' },
-              children: [
-                "Your ",
-                _jsx("span", { className: "gradient-text bg-clip-text text-transparent bg-gradient-to-r from-primary-500 via-accent-500 to-secondary-500 animate-gradient", children: "Smart Wellness" }),
-                " Hub"
-              ] 
+              children: "Your Smart Wellness Hub"
             }),
             _jsx("p", { 
               className: "max-w-xl text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed animate-fade-in-up", 
@@ -81,11 +77,18 @@ const Landing = () => {
               ] 
             })
           ] }),
-          // Enhanced Hero Card with Animation
+          // Enhanced Hero Card with Animation and Image
           _jsx("div", { 
             className: `relative animate-scale-in ${mounted ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`,
             style: { animationDelay: '0.3s' },
-            children: _jsxs("div", { 
+            children: _jsxs("div", { className: "space-y-6", children: [
+              _jsx("img", {
+                src: "https://www.mycvcreator.com/administrator/postimages/66c99794c2ad88.95687075.jpg",
+                alt: "Carevia Wellness",
+                className: "w-full max-w-md mx-auto rounded-3xl shadow-2xl object-cover animate-fade-in",
+                style: { animationDelay: '0.2s' }
+              }),
+              _jsxs("div", { 
               className: "relative mx-auto max-w-md rounded-3xl bg-gradient-to-br from-primary-500 via-primary-600 to-accent-600 text-white p-8 shadow-2xl shadow-primary-500/50 hover:shadow-primary-500/70 transition-all duration-500 hover:scale-105 overflow-hidden group", 
               children: [
                 // Animated background gradient
@@ -123,6 +126,7 @@ const Landing = () => {
                 ] })
               ] 
             })
+            ] })
           })
         ] 
       }),

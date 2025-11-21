@@ -149,7 +149,7 @@ const Pricing = () => {
     const handler = window.PaystackPop.setup({
       key: publicKey,
       email: user.email,
-      amount: 1, // 5000 KES (KES uses base units, not cents)
+      amount: 22, // 5000 KES (KES uses base units, not cents)
       currency: "KES", // Change to "NGN" if using Nigerian Naira (then amount should be 5000 * 100)
       callback: handlePaymentCallback,
       onClose: () => {
@@ -234,7 +234,7 @@ const Pricing = () => {
       <div className="grid gap-6 md:grid-cols-2 mt-8">
         {/* Free Plan */}
         <div className="card p-8 group hover:shadow-2xl transition-all duration-500 relative overflow-hidden animate-scale-in"
-             style={{ animationDelay: '0.1s' }}>
+              style={{ animationDelay: '0.1s' }}>
           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gray-100/50 to-transparent rounded-full blur-2xl -translate-y-16 translate-x-16" />
           <div className="relative z-10">
             <div className="mb-6">
