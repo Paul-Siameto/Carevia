@@ -106,7 +106,8 @@ A modern, full-stack health and wellness application built with the MERN stack. 
 #### Backend (`.env`)
 ```env
 # Database
-MONGODB_URI=mongodb://localhost:27017/carevia
+MONGODB_URI=mongodb://localhost:27017/your project db
+
 # For MongoDB Atlas, use: mongodb+srv://your-username:your-password@your-cluster.mongodb.net/carevia
 
 # JWT
