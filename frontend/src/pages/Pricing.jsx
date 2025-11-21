@@ -213,77 +213,132 @@ const Pricing = () => {
     }
   };
 
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
-      <div className="card p-6 space-y-4">
-        <h1 className="text-2xl font-semibold text-primary">Carevia Plans</h1>
-        <p className="text-sm text-gray-600">
-          Choose the plan that works best for you. Upgrade to unlock AI and deeper
-          insights.
+    <div className={`max-w-6xl mx-auto space-y-8 py-8 animate-fade-in transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      {/* Header */}
+      <div className="text-center space-y-4 mb-10">
+        <h1 className="text-5xl font-black text-gray-900 dark:text-white">
+          Choose Your <span className="gradient-text bg-clip-text text-transparent bg-gradient-to-r from-primary-500 via-accent-500 to-secondary-500">Wellness Plan</span>
+        </h1>
+        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          Unlock advanced features and AI-powered insights to take control of your health journey
         </p>
+      </div>
 
-        <div className="grid gap-4 md:grid-cols-2 mt-2">
-          <div className="border rounded-xl p-4 bg-white/60">
-            <h2 className="text-lg font-semibold text-gray-900">Free</h2>
-            <p className="text-sm text-gray-600 mb-2">For getting started.</p>
-            <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside">
-              <li>Dashboard overview</li>
-              <li>Health tracking</li>
-              <li>Profile & privacy controls</li>
-            </ul>
-            <p className="mt-3 text-xl font-semibold text-gray-900">Ksh 0</p>
-          </div>
-
-          <div className="border-2 border-primary rounded-xl p-4 bg-primary/5 relative">
-            <div className="absolute -top-3 right-4 bg-primary text-white text-[11px] px-2 py-0.5 rounded-full uppercase tracking-[0.18em]">
-              Most popular
+      <div className="grid gap-6 md:grid-cols-2 mt-8">
+        {/* Free Plan */}
+        <div className="card p-8 group hover:shadow-2xl transition-all duration-500 relative overflow-hidden animate-scale-in"
+             style={{ animationDelay: '0.1s' }}>
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gray-100/50 to-transparent rounded-full blur-2xl -translate-y-16 translate-x-16" />
+          <div className="relative z-10">
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Free</h2>
+              <p className="text-gray-600 dark:text-gray-400">Perfect for getting started</p>
             </div>
-            <h2 className="text-lg font-semibold text-gray-900">Premium</h2>
-            <p className="text-sm text-gray-600 mb-2">
-              For deeper insights and AI support.
-            </p>
-            <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside">
-              <li>Everything in Free</li>
-              <li>Full Mood tracking & trends</li>
-              <li>Access to curated health articles</li>
-              <li>AI assistant for wellness questions</li>
+            <div className="mb-6">
+              <p className="text-4xl font-black text-gray-900 dark:text-white mb-1">KES 0</p>
+              <p className="text-sm text-gray-500 dark:text-gray-500">Forever free</p>
+            </div>
+            <ul className="space-y-3 mb-8">
+              <li className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
+                <span className="w-5 h-5 rounded-full bg-gradient-to-br from-secondary-400 to-secondary-500 flex items-center justify-center text-white text-xs font-bold">✓</span>
+                Dashboard overview
+              </li>
+              <li className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
+                <span className="w-5 h-5 rounded-full bg-gradient-to-br from-secondary-400 to-secondary-500 flex items-center justify-center text-white text-xs font-bold">✓</span>
+                Basic health tracking
+              </li>
+              <li className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
+                <span className="w-5 h-5 rounded-full bg-gradient-to-br from-secondary-400 to-secondary-500 flex items-center justify-center text-white text-xs font-bold">✓</span>
+                Profile & privacy controls
+              </li>
             </ul>
-            <p className="mt-3 text-xl font-semibold text-gray-900">KES 5,000</p>
-            <p className="text-xs text-gray-500 mb-3">One-time unlock for now.</p>
+            {!user?.isPremium && (
+              <button className="w-full btn-outline py-3 font-semibold">Current Plan</button>
+            )}
+          </div>
+        </div>
+
+        {/* Premium Plan */}
+        <div className="card p-8 group hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 relative overflow-hidden border-2 border-primary-300 dark:border-primary-700 bg-gradient-to-br from-primary-50/50 to-accent-50/30 dark:from-primary-900/20 dark:to-accent-900/20 animate-scale-in"
+             style={{ animationDelay: '0.2s' }}>
+          <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-primary-400/30 to-accent-400/30 rounded-full blur-3xl -translate-y-20 translate-x-20 group-hover:scale-150 transition-transform duration-700" />
+          <div className="absolute -top-4 right-6">
+            <span className="inline-flex items-center rounded-full bg-gradient-to-r from-primary-500 to-accent-500 text-white text-xs font-bold px-4 py-1.5 shadow-lg shadow-primary-500/30">
+              ⭐ Most Popular
+            </span>
+          </div>
+          <div className="relative z-10">
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Premium</h2>
+              <p className="text-gray-600 dark:text-gray-400">Advanced features & AI support</p>
+            </div>
+            <div className="mb-6">
+              <p className="text-4xl font-black text-gray-900 dark:text-white mb-1">KES 5,000</p>
+              <p className="text-sm text-gray-500 dark:text-gray-500">One-time payment</p>
+            </div>
+            <ul className="space-y-3 mb-8">
+              <li className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
+                <span className="w-5 h-5 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white text-xs font-bold">✓</span>
+                Everything in Free
+              </li>
+              <li className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
+                <span className="w-5 h-5 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white text-xs font-bold">✓</span>
+                Full Mood tracking & trends
+              </li>
+              <li className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
+                <span className="w-5 h-5 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white text-xs font-bold">✓</span>
+                Access to curated health articles
+              </li>
+              <li className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
+                <span className="w-5 h-5 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white text-xs font-bold">✓</span>
+                AI assistant for wellness questions
+              </li>
+            </ul>
 
             {/* Payment Method Selection */}
-            <div className="mb-3 space-y-2">
-              <label className="text-sm font-medium text-gray-700">Payment Method</label>
+            <div className="mb-4 space-y-3">
+              <label className="block text-sm font-semibold text-gray-900 dark:text-white">Payment Method</label>
               <div className="flex gap-3">
-                <label className="flex items-center gap-2 cursor-pointer">
+                <label className="flex-1 cursor-pointer group">
                   <input
                     type="radio"
                     name="paymentMethod"
                     value="paystack"
                     checked={paymentMethod === "paystack"}
                     onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="w-4 h-4 text-primary"
+                    className="peer sr-only"
                   />
-                  <span className="text-sm">Paystack</span>
+                  <div className="px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-center font-medium text-sm transition-all duration-300 peer-checked:border-primary-500 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-900/20 peer-checked:text-primary-700 dark:peer-checked:text-primary-400 group-hover:border-primary-300">
+                    Paystack
+                  </div>
                 </label>
-                <label className="flex items-center gap-2 cursor-pointer">
+                <label className="flex-1 cursor-pointer group">
                   <input
                     type="radio"
                     name="paymentMethod"
                     value="mpesa"
                     checked={paymentMethod === "mpesa"}
                     onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="w-4 h-4 text-primary"
+                    className="peer sr-only"
                   />
-                  <span className="text-sm">M-Pesa</span>
+                  <div className="px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-center font-medium text-sm transition-all duration-300 peer-checked:border-primary-500 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-900/20 peer-checked:text-primary-700 dark:peer-checked:text-primary-400 group-hover:border-primary-300">
+                    M-Pesa
+                  </div>
                 </label>
               </div>
             </div>
 
             {/* M-Pesa Phone Number Input */}
             {paymentMethod === "mpesa" && (
-              <div className="mb-3">
-                <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">
+              <div className="mb-4 animate-fade-in">
+                <label htmlFor="phoneNumber" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
                   M-Pesa Phone Number
                 </label>
                 <input
@@ -292,9 +347,9 @@ const Pricing = () => {
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   placeholder="254XXXXXXXXX or 0XXXXXXXXX"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary-500 transition-all duration-300 bg-white dark:bg-gray-800"
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                   Enter your M-Pesa registered phone number
                 </p>
               </div>
@@ -302,29 +357,57 @@ const Pricing = () => {
 
             <button
               type="button"
-              className="btn-primary w-full mt-1 disabled:opacity-60"
+              className="btn-primary w-full py-4 text-base font-bold disabled:opacity-60 disabled:cursor-not-allowed relative overflow-hidden group"
               onClick={handleUpgrade}
-              disabled={loading || (paymentMethod === "paystack" && !scriptLoaded)}
+              disabled={loading || (paymentMethod === "paystack" && !scriptLoaded) || user?.isPremium}
             >
-              {loading
-                ? "Processing..."
-                : paymentMethod === "paystack"
-                ? scriptLoaded
-                  ? "Upgrade with Paystack"
-                  : "Loading payment gateway..."
-                : "Upgrade with M-Pesa"}
+              {user?.isPremium ? (
+                "✓ Premium Active"
+              ) : loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="spinner"></span>
+                  Processing...
+                </span>
+              ) : paymentMethod === "paystack" ? (
+                scriptLoaded ? (
+                  <span className="flex items-center justify-center gap-2">
+                    Upgrade with Paystack <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </span>
+                ) : (
+                  "Loading payment gateway..."
+                )
+              ) : (
+                <span className="flex items-center justify-center gap-2">
+                  Upgrade with M-Pesa <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </span>
+              )}
             </button>
           </div>
         </div>
-
-        {error && <p className="text-sm text-red-600 mt-2">{error}</p>}
-        {success && <p className="text-sm text-emerald-600 mt-2">{success}</p>}
-
-        <p className="text-xs text-gray-500 mt-4">
-          Note: Make sure you have configured your payment gateway credentials
-          in the environment variables before going live.
-        </p>
       </div>
+
+      {/* Success/Error Messages */}
+      {error && (
+        <div className="max-w-2xl mx-auto animate-fade-in-down mt-6">
+          <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800 rounded-xl p-4 flex items-center gap-3">
+            <span className="text-2xl">⚠️</span>
+            <p className="text-sm font-medium text-red-700 dark:text-red-400">{error}</p>
+          </div>
+        </div>
+      )}
+      {success && (
+        <div className="max-w-2xl mx-auto animate-fade-in-down mt-6">
+          <div className="bg-emerald-50 dark:bg-emerald-900/20 border-2 border-emerald-200 dark:border-emerald-800 rounded-xl p-4 flex items-center gap-3">
+            <span className="text-2xl">✓</span>
+            <p className="text-sm font-medium text-emerald-700 dark:text-emerald-400">{success}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Footer Note */}
+      <p className="text-center text-sm text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mt-8">
+        🔒 Secure payment processing. All transactions are encrypted and secure.
+      </p>
     </div>
   );
 };

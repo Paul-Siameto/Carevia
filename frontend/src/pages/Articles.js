@@ -22,7 +22,7 @@ const Articles = () => {
             _jsx("p", { className: "text-sm text-gray-500", children: "Health and wellness articles curated by your Carevia admin." }),
             _jsx("div", { className: "grid gap-4 sm:grid-cols-2", children: articles.map((a) => {
                     const summary = a.summary || (a.body || a.content || "").slice(0, 140) + ((a.body || a.content || "").length > 140 ? "..." : "");
-                    return (_jsx(Link, { to: `/articles/${a._id}`, className: "block", children: _jsxs("article", { className: "card overflow-hidden flex flex-col hover:shadow-md transition-shadow", children: [
+                    return (_jsx(Link, { key: a._id, to: `/articles/${a._id}`, className: "block", children: _jsxs("article", { className: "card overflow-hidden flex flex-col hover:shadow-md transition-shadow", children: [
                                 a.imageUrl && (_jsx("div", { className: "h-40 w-full bg-gray-100", children: _jsx("img", { src: a.imageUrl, alt: "Article visual", className: "h-full w-full object-cover", onError: (e) => {
                                                 e.currentTarget.style.display = "none";
                                             } }) })),

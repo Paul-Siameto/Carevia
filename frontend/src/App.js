@@ -47,7 +47,11 @@ function App() {
                                         _jsx(Route, { path: "/admin/content", element: _jsx(Admin, {}) }),
                                         _jsx(Route, { path: "/admin/settings", element: _jsx(Admin, {}) })] })] }) }) }),
                 _jsx(Footer, {}),
-                _jsx("div", { className: "fixed bottom-5 right-5 z-40", children: _jsx(Link, { to: "/ai", className: "inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/30 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/40", children: _jsxs("span", { className: "text-xl font-semibold", children: ["AI"] }) }) })
+                _jsx("div", { className: "fixed bottom-6 right-6 z-40 animate-fade-in-up", style: { animationDelay: '0.5s' }, children: _jsx(Link, { to: "/ai", className: "group relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-accent-500 text-white shadow-2xl shadow-primary-500/40 hover:shadow-primary-500/60 hover:scale-110 active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary/30 transition-all duration-300", children: [
+                    _jsx("span", { className: "text-xl font-bold group-hover:scale-110 transition-transform duration-300", children: "AI" }),
+                    _jsx("span", { className: "absolute -top-1 -right-1 flex h-4 w-4", children: _jsx("span", { className: "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" }) }),
+                    _jsx("span", { className: "absolute -top-1 -right-1 inline-flex h-4 w-4 rounded-full bg-emerald-500" })
+                ] }) })
             ] }) }));
 }
 export default App;
