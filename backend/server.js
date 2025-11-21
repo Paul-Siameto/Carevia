@@ -44,8 +44,8 @@ if (process.env.CLIENT_URL) {
 
 // In development, always allow both common Vite ports
 if (process.env.NODE_ENV !== "production") {
-  allowedOrigins.add("http://localhost:5173");
-  allowedOrigins.add("http://localhost:5174");
+  allowedOrigins.add("https://carevia-one.vercel.app/");
+  // allowedOrigins.add("http://localhost:5174");
 }
 
 // If no origins were configured, use defaults
