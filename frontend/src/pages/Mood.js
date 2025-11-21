@@ -68,11 +68,11 @@ const MoodPage = () => {
           className:
             "bg-white/70 text-gray-900 px-3 py-2 rounded-xl border border-gray-300 shadow-inner backdrop-blur-md"
         }, [
-          h("option", { value: "very-bad" }, "😢 Very Bad"),
-          h("option", { value: "bad" }, "☹️ Bad"),
-          h("option", { value: "neutral" }, "😐 Neutral"),
-          h("option", { value: "good" }, "🙂 Good"),
-          h("option", { value: "very-good" }, "😁 Very Good"),
+          h("option", { key: "opt-very-bad", value: "very-bad" }, "😢 Very Bad"),
+          h("option", { key: "opt-bad", value: "bad" }, "☹️ Bad"),
+          h("option", { key: "opt-neutral", value: "neutral" }, "😐 Neutral"),
+          h("option", { key: "opt-good", value: "good" }, "🙂 Good"),
+          h("option", { key: "opt-very-good", value: "very-good" }, "😁 Very Good"),
         ])
       ]),
 
@@ -115,9 +115,9 @@ const MoodPage = () => {
 
     // Entries list
     h("div", { className: "space-y-4" }, [
-      entries.map((e) =>
+      entries.map((e, idx) =>
         h("div", {
-          key: e._id,
+          key: e._id ?? `entry-${idx}`,
           className:
             "p-4 rounded-2xl bg-white/40 backdrop-blur-xl border border-white/30 shadow-lg " +
             "transition hover:bg-white/50 text-gray-900"

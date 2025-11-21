@@ -6,7 +6,7 @@ import Providers from "./components/Providers";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminLogin from "./pages/AdminLogin.jsx";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard.jsx";
 import Profile from "./pages/Profile";
 import Health from "./pages/Health";
 import Mood from "./pages/Mood";

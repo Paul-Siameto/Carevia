@@ -56,21 +56,21 @@ const Landing = () => {
                 _jsxs("div", { className: "flex items-center gap-3 group", children: [
                   _jsx("div", { className: "p-2 rounded-xl bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 group-hover:scale-110 transition-transform duration-300", children: _jsx("span", { className: "text-2xl", children: "🤖" }) }),
                   _jsxs("div", { children: [
-                    _jsx("p", { className: "text-lg font-bold text-gray-900 dark:text-white", children: "24/7 AI" }),
+                    _jsx("p", { className: "text-lg font-bold text-gray-700 dark:text-gray-400", children: "24/7 AI" }),
                     _jsx("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Wellness assistant" })
                   ] })
                 ] }),
                 _jsxs("div", { className: "flex items-center gap-3 group", children: [
                   _jsx("div", { className: "p-2 rounded-xl bg-gradient-to-br from-secondary-100 to-secondary-200 dark:from-secondary-900/30 dark:to-secondary-800/30 group-hover:scale-110 transition-transform duration-300", children: _jsx("span", { className: "text-2xl", children: "📊" }) }),
                   _jsxs("div", { children: [
-                    _jsx("p", { className: "text-lg font-bold text-gray-900 dark:text-white", children: "All-in-One" }),
+                    _jsx("p", { className: "text-lg font-bold text-gray-900 dark:text-gray-400", children: "All-in-One" }),
                     _jsx("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Health & mood tracking" })
                   ] })
                 ] }),
                 _jsxs("div", { className: "flex items-center gap-3 group", children: [
                   _jsx("div", { className: "p-2 rounded-xl bg-gradient-to-br from-accent-100 to-accent-200 dark:from-accent-900/30 dark:to-accent-800/30 group-hover:scale-110 transition-transform duration-300", children: _jsx("span", { className: "text-2xl", children: "🔒" }) }),
                   _jsxs("div", { children: [
-                    _jsx("p", { className: "text-lg font-bold text-gray-900 dark:text-white", children: "Secure" }),
+                    _jsx("p", { className: "text-lg font-bold text-gray-900 dark:text-gray-400", children: "Secure" }),
                     _jsx("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Privacy first" })
                   ] })
                 ] })
@@ -104,7 +104,7 @@ const Landing = () => {
                   ] }),
                   _jsxs("div", { className: "grid grid-cols-3 gap-3 mb-6", children: [
                     _jsxs("div", { className: "rounded-2xl bg-white/10 backdrop-blur-md px-4 py-4 border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105", children: [
-                      _jsx("p", { className: "text-[10px] uppercase tracking-wider text-white/70 font-bold mb-1", children: "💊 Medication" }),
+                      _jsx("p", { className: "text-[10px] uppercase tracking-wider text-white/80font-bold mb-1", children: "💊 Medication" }),
                       _jsx("p", { className: "text-lg font-bold mb-1", children: "On Track" }),
                       _jsx("p", { className: "text-[11px] text-white/80 leading-relaxed", children: "All reminders aligned" })
                     ] }),
@@ -136,7 +136,7 @@ const Landing = () => {
         style: { animationDelay: '0.5s' },
         children: [
           _jsxs("div", { className: "text-center space-y-3 mb-10", children: [
-            _jsx("h2", { className: "text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white", children: "Everything you need for better wellness" }),
+            _jsx("h2", { className: "text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-500", children: "Everything you need for better wellness" }),
             _jsx("p", { className: "text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto", children: "Professional health tracking made simple and beautiful" })
           ] }),
           _jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
