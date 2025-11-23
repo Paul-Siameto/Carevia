@@ -51,7 +51,7 @@ const Navbar = () => {
         Articles
       </NavLink>
       <NavLink to="/ai" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
-        AI
+        AI Bubba
       </NavLink>
       <NavLink to="/profile" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
         Profile
@@ -92,7 +92,7 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto px-4 py-3">
         <div className="flex items-center justify-between gap-4">
           <Link to="/" className="font-bold text-2xl tracking-tight hover:opacity-90 transition-opacity duration-300 relative group">
-            <span className="text-white">Carevia</span>
+            <span className="text-white">Care-via</span>
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
           </Link>
           <div className="hidden md:flex items-center gap-2">

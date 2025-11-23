@@ -14,7 +14,7 @@ const Footer = () => {
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white text-sm font-bold shadow-sm">
                 CV
               </div>
-              <span className="text-2xl font-semibold tracking-tight">Carevia</span>
+              <span className="text-2xl font-semibold tracking-tight">Care-via</span>
             </div>
 
             <p className="mt-6 max-w-md text-center text-sm leading-relaxed text-secondary-foreground/70 sm:max-w-xs sm:text-left">

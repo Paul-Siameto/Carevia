@@ -28,7 +28,7 @@ const Landing = () => {
             _jsx("p", { 
               className: "max-w-xl text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed animate-fade-in-up", 
               style: { animationDelay: '0.2s' },
-              children: "Track symptoms, medications, and mood in one beautiful space. Carevia blends professional health tracking with a warm AI assistant to support your everyday wellness decisions." 
+              children: "Track symptoms, medications, and mood in one beautiful space. Care-via blends professional health tracking with a warm AI assistant to support your everyday wellness decisions." 
             }),
             _jsxs("div", { 
               className: "flex flex-col sm:flex-row gap-4 pt-2 animate-fade-in-up", 
@@ -84,7 +84,7 @@ const Landing = () => {
             children: _jsxs("div", { className: "space-y-6", children: [
               _jsx("img", {
                 src: "https://www.mycvcreator.com/administrator/postimages/66c99794c2ad88.95687075.jpg",
-                alt: "Carevia Wellness",
+                alt: "Care-via Wellness",
                 className: "w-full max-w-md mx-auto rounded-3xl shadow-2xl object-cover animate-fade-in",
                 style: { animationDelay: '0.2s' }
               }),
