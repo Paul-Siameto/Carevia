@@ -103,20 +103,20 @@ const Landing = () => {
                     _jsx("span", { className: "inline-flex items-center rounded-full bg-white/20 backdrop-blur-sm px-4 py-1.5 text-xs font-semibold border border-white/30", children: "✨ Wellness" })
                   ] }),
                   _jsxs("div", { className: "grid grid-cols-3 gap-3 mb-6", children: [
-                    _jsxs("div", { className: "rounded-2xl bg-white/10 backdrop-blur-md px-4 py-4 border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105", children: [
-                      _jsx("p", { className: "text-[10px] uppercase tracking-wider text-white/80font-bold mb-1", children: "💊 Medication" }),
-                      _jsx("p", { className: "text-lg font-bold mb-1", children: "On Track" }),
-                      _jsx("p", { className: "text-[11px] text-white/80 leading-relaxed", children: "All reminders aligned" })
+                    _jsxs("div", { className: "rounded-2xl bg-white/80 dark:bg-white/10 backdrop-blur-md px-4 py-4 border border-gray-200 dark:border-white/20 hover:bg-white/90 dark:hover:bg-white/15 transition-all duration-300 hover:scale-105 text-gray-800 dark:text-white", children: [
+                      _jsx("p", { className: "text-[10px] uppercase tracking-wider text-primary-600 dark:text-white/80 font-bold mb-1", children: "💊 Medication" }),
+                      _jsx("p", { className: "text-lg font-bold mb-1 text-gray-900 dark:text-white", children: "On Track" }),
+                      _jsx("p", { className: "text-[11px] text-gray-600 dark:text-white/80 leading-relaxed", children: "All reminders aligned" })
                     ] }),
-                    _jsxs("div", { className: "rounded-2xl bg-white/10 backdrop-blur-md px-4 py-4 border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105", children: [
-                      _jsx("p", { className: "text-[10px] uppercase tracking-wider text-white/70 font-bold mb-1", children: "😊 Mood" }),
-                      _jsx("p", { className: "text-lg font-bold mb-1", children: "Balanced" }),
-                      _jsx("p", { className: "text-[11px] text-white/80 leading-relaxed", children: "Feeling great today" })
+                    _jsxs("div", { className: "rounded-2xl bg-white/80 dark:bg-white/10 backdrop-blur-md px-4 py-4 border border-gray-200 dark:border-white/20 hover:bg-white/90 dark:hover:bg-white/15 transition-all duration-300 hover:scale-105 text-gray-800 dark:text-white", children: [
+                      _jsx("p", { className: "text-[10px] uppercase tracking-wider text-primary-600 dark:text-white/70 font-bold mb-1", children: "😊 Mood" }),
+                      _jsx("p", { className: "text-lg font-bold mb-1 text-gray-900 dark:text-white", children: "Balanced" }),
+                      _jsx("p", { className: "text-[11px] text-gray-600 dark:text-white/80 leading-relaxed", children: "Feeling great today" })
                     ] }),
-                    _jsxs("div", { className: "rounded-2xl bg-white/10 backdrop-blur-md px-4 py-4 border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105", children: [
-                      _jsx("p", { className: "text-[10px] uppercase tracking-wider text-white/70 font-bold mb-1", children: "🏃 Activity" }),
-                      _jsx("p", { className: "text-lg font-bold mb-1", children: "Active" }),
-                      _jsx("p", { className: "text-[11px] text-white/80 leading-relaxed", children: "Improving daily" })
+                    _jsxs("div", { className: "rounded-2xl bg-white/80 dark:bg-white/10 backdrop-blur-md px-4 py-4 border border-gray-200 dark:border-white/20 hover:bg-white/90 dark:hover:bg-white/15 transition-all duration-300 hover:scale-105 text-gray-800 dark:text-white", children: [
+                      _jsx("p", { className: "text-[10px] uppercase tracking-wider text-primary-600 dark:text-white/70 font-bold mb-1", children: "🏃 Activity" }),
+                      _jsx("p", { className: "text-lg font-bold mb-1 text-gray-900 dark:text-white", children: "Active" }),
+                      _jsx("p", { className: "text-[11px] text-gray-600 dark:text-white/80 leading-relaxed", children: "Improving daily" })
                     ] })
                   ] }),
                   _jsxs("div", { className: "rounded-2xl bg-white/15 backdrop-blur-md px-5 py-4 border border-white/25", children: [

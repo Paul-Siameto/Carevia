@@ -51,7 +51,7 @@ const Navbar = () => {
         Articles
       </NavLink>
       <NavLink to="/ai" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
-        AI Bubba
+        AI
       </NavLink>
       <NavLink to="/profile" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
         Profile

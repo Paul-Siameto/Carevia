@@ -63,6 +63,7 @@ body {
 /***** Cards *****/
 .card {
   @apply bg-white/90 backdrop-blur-xl border border-white/50 rounded-2xl shadow-lg
+         text-gray-800
          hover:shadow-2xl hover:scale-[1.02]
          transition-all duration-300 ease-out
          overflow-hidden;
@@ -99,7 +100,7 @@ body {
 /***** Glass Morphism Effect *****/
 .glass {
   @apply bg-white/20 backdrop-blur-xl border border-white/30 rounded-2xl
-         shadow-xl;
+         shadow-xl text-gray-800;
 }
 
 .dark .glass {
