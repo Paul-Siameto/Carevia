@@ -16,6 +16,7 @@ import AI from "./pages/AI";
 import Pricing from "./pages/Pricing.jsx";
 import Privacy from "./pages/Privacy";
 import Landing from "./pages/Landing";
+import About from "./pages/About.jsx";
 import Admin from "./pages/Admin.jsx";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import AdminProtectedRoute from "./auth/AdminProtectedRoute";
@@ -30,6 +31,7 @@ function App() {
                                 _jsx(Route, { path: "/admin/login", element: _jsx(AdminLogin, {}) }),
                                 _jsx(Route, { path: "/register", element: _jsx(Register, {}) }),
                                 _jsx(Route, { path: "/welcome", element: _jsx(Landing, {}) }),
+                                _jsx(Route, { path: "/about", element: _jsx(About, {}) }),
                                 _jsx(Route, { path: "/pricing", element: _jsx(Pricing, {}) }),
                                 _jsxs(Route, { element: _jsx(ProtectedRoute, {}), children: [
                                         _jsx(Route, { path: "/dashboard", element: _jsx(Dashboard, {}) }),

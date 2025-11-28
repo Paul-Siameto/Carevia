@@ -44,6 +44,9 @@ const Navbar = () => {
       <NavLink to="/health" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
         Health
       </NavLink>
+      <NavLink to="/about" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
+        About
+      </NavLink>
       <NavLink to="/mood" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>
         Mood
       </NavLink>
@@ -82,6 +85,7 @@ const Navbar = () => {
 
   const GuestItems = () => (
     <>
+      <NavLink to="/about" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>About</NavLink>
       <NavLink to="/login" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>Login</NavLink>
       <NavLink to="/register" className={({ isActive }) => `${linkBase} ${isActive ? "nav-active" : ""}`}>Register</NavLink>
     </>

@@ -75,21 +75,16 @@ const Profile = () => {
                         throw new Error('No file selected');
                     }
                     
-                    formData.append('profilePicture', fileInputRef.current.files[0]);
+                    // Append the file
+                    const file = fileInputRef.current.files[0];
+                    formData.append('profilePicture', file);
                     
-                    // Create profile data object
-                    const profileData = {
-                        name: name || undefined,
-                        healthProfile: {
-                            age: age ? parseInt(age) : undefined,
-                            heightCm: heightCm ? parseFloat(heightCm) : undefined,
-                            weightKg: weightKg ? parseFloat(weightKg) : undefined,
-                            bmi: calculateBmi(weightKg, heightCm)
-                        }
-                    };
-                    
-                    // Add profile data as JSON string
-                    formData.append('data', JSON.stringify(profileData));
+                    // Append other fields individually
+                    formData.append('name', name || '');
+                    formData.append('age', age ? age.toString() : '');
+                    formData.append('heightCm', heightCm ? heightCm.toString() : '');
+                    formData.append('weightKg', weightKg ? weightKg.toString() : '');
+                    formData.append('bmi', calculateBmi(weightKg, heightCm) || '');
                     
                     console.log('Sending profile update with file...');
                     const response = await api.put('/users/me', formData, {
@@ -97,7 +92,7 @@ const Profile = () => {
                             'Content-Type': 'multipart/form-data',
                         },
                         transformRequest: (data, headers) => {
-                            // Remove the default content-type to let the browser set it with the correct boundary
+                            // Let the browser set the content type with the correct boundary
                             delete headers['Content-Type'];
                             return data;
                         }
@@ -115,6 +110,7 @@ const Profile = () => {
                         updateUser({ 
                             ...user,
                             ...response.data,
+                            name: response.data.name || user.name,
                             healthProfile: {
                                 ...(response.data.healthProfile || {}),
                                 bmi: calculateBmi(weightKg, heightCm)
