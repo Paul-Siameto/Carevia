@@ -74,12 +74,7 @@ const About = () => {
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">Meet the Team</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { name: "Alex Johnson", role: "CEO & Co-founder", avatar: "👨‍💼" },
-              { name: "Sarah Williams", role: "CTO", avatar: "👩‍💻" },
-              { name: "Dr. Michael Chen", role: "Chief Medical Officer", avatar: "👨‍⚕️" },
-              { name: "Emily Rodriguez", role: "Head of Design", avatar: "👩‍🎨" }
-            ].map((member, index) => (
+            {[].map((member, index) => (
               <div key={index} className="text-center">
                 <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-5xl">
                   {member.avatar}
