@@ -9,7 +9,7 @@ import AdminLogin from "./pages/AdminLogin.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Profile from "./pages/Profile";
 import Health from "./pages/Health";
-import Mood from "./pages/Mood";
+import MoodPage from "./pages/Mood";
 import Articles from "./pages/Articles";
 import ArticleDetail from "./pages/ArticleDetail.jsx";
 import AI from "./pages/AI";
@@ -38,7 +38,7 @@ function App() {
                                         _jsx(Route, { path: "/profile", element: _jsx(Profile, {}) }),
                                         _jsx(Route, { path: "/health", element: _jsx(Health, {}) }),
                                         _jsxs(Route, { element: _jsx(PremiumRoute, {}), children: [
-                                                _jsx(Route, { path: "/mood", element: _jsx(Mood, {}) }),
+                                                _jsx(Route, { path: "/mood", element: _jsx(MoodPage, {}) }),
                                                 _jsx(Route, { path: "/articles", element: _jsx(Articles, {}) }),
                                                 _jsx(Route, { path: "/articles/:id", element: _jsx(ArticleDetail, {}) }),
                                                 _jsx(Route, { path: "/ai", element: _jsx(AI, {}) })] }),
